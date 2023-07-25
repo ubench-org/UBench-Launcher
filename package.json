@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "UBench Benchmark Launcher",
   "author": "UBench Organization",
-  "main": "ubenchlauncher.js",
+  "main": "./src/ubenchlauncher.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
