@@ -27,10 +27,10 @@ try {
     require('electron-reloader')(module)
 } catch (_) {}
 
-fs.ensureFileSync(path.join(rootDir, "results.json"));
+fs.ensureFileSync(path.join(rootDir, "data", "results.json"));
 fs.ensureDirSync(path.join(rootDir, "bin"));
-if (!fs.existsSync(path.join(rootDir, "manifest.json")))
-    fs.writeJSONSync(path.join(rootDir, "manifest.json"), []);
+if (!fs.existsSync(path.join(rootDir, "data", "manifest.json")))
+    fs.writeJSONSync(path.join(rootDir, "data", "manifest.json"), []);
 fs.removeSync(path.join(rootDir, "cache"))
 
 const ax = axios.create({
@@ -58,7 +58,7 @@ function load_manifest(event) {
                 manifest[i].attributes['installed'] = fs.pathExistsSync(path.join(rootDir, "bin", manifest[i].attributes.uuid))
                 manifest[i].attributes['downloading'] = fs.pathExistsSync(path.join(rootDir, "cache", manifest[i].attributes.uuid))
             }
-            fs.writeJSONSync(path.join(rootDir, "manifest.json"), manifest);
+            fs.writeJSONSync(path.join(rootDir, "data", "manifest.json"), manifest);
             event.sender.send('manifest', manifest)
         })
 }
@@ -158,7 +158,7 @@ function analyze_system() {
             checks = 0;
             has_sysinfo = true;
             createWindow();
-            fs.writeJsonSync(path.join(rootDir, "sysinfo.json"), {
+            fs.writeJsonSync(path.join(rootDir, "data", "sysinfo.json"), {
                 "uuid": uuid,
                 "system": system,
                 "board": mboard,
@@ -182,7 +182,7 @@ const createWindow = () => {
         backgroundColor: "#121212",
         icon: "./res/logo.ico",
         webPreferences: {
-            preload: path.join(rootDir, 'preload.js'),
+            preload: path.join(rootDir, "public", "js", 'preload.js'),
             nodeIntegration: true
         },
         minWidth: 600,
@@ -200,7 +200,7 @@ const createWindow = () => {
 
 
     ipcMain.on('getSpecs', (event) => {
-        let specs = fs.readJsonSync(path.join(rootDir, "sysinfo.json"));
+        let specs = fs.readJsonSync(path.join(rootDir, "data", "sysinfo.json"));
         event.sender.send('ipcsuccess', specs)
     })
 
@@ -291,7 +291,7 @@ const createWindow = () => {
 
     if (require('electron-squirrel-startup')) app.quit();
     // and load the index.html of the app.
-    mainWindow.loadFile('index.html')
+    mainWindow.loadFile('./public/index.html')
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()
@@ -310,10 +310,10 @@ app.whenReady().then(() => {
         detail: 'UBench Organization collects anonymous system specifications for benchmarking purposes. UBench is powered by community data, and this information is freely available to the community.',
     };
 
-    if (!fs.existsSync(path.join(rootDir, "sysinfo.json"))) {
+    if (!fs.existsSync(path.join(rootDir, "data", "sysinfo.json"))) {
         var d = dialog.showMessageBoxSync(null, options);
         if (d < 1) process.exit();
-        else fs.writeJSONSync(path.join(rootDir, "sysinfo.json"), {});
+        else fs.writeJSONSync(path.join(rootDir, "data", "sysinfo.json"), {});
     }
     analyze_system();
 
