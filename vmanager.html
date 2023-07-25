@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UBench Launcher</title>
+  <link rel="stylesheet" href="public/css/style.css">
+  <script src="public/js/anime.min.js"></script>
+  <script src="public/js/scrollreveal.min.js"></script>
+
+</head>
+
+<body class="is-boxed has-animations">
+  <span class="titlebar"></span>
+  <div class="body-wrap">
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-inner">
+            <div class="hero-copy">
+              <br>
+              <table id="table">
+              </table>
+
+              <a class="button start-button" href="index.html">Home</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer>UBench Launcher 0.1</footer>
+      <span id="version" hidden></span>
+      <span id="rhi" hidden></span>
+      <span id="btn_run" hidden></span>
+    </main>
+  </div>
+</body>
+<script>
+  document.getElementById("table").innerHTML = `<b>Retrieving manifest...</b>`;
+
+
+  window.api.getManifest();
+
+
+  function update() {
+    document.getElementById("table").innerHTML = `<b>Retrieving manifest...</b>`;
+
+    window.api.getManifest();
+  }
+
+  function add_entry(data) {
+    let btn = `<button class="button button-small" onclick="download('${data.uuid}','${data.url}')">Download</button>`;
+    if (!data.url) {
+      btn = `<button disabled class="button button-small" onclick="download('${data.uuid}')">Unavailable</button>`;
+    }
+    document.getElementById("table").innerHTML += `
+    <tr>
+      <td>${data.version}</td>
+      <td>${data.size} GB</td>
+      <td id="${data.uuid}">
+        ${btn}
+      </td>
+    </tr>
+  `;
+  }
+
+  function remove(uuid) {
+    document.getElementById(uuid).innerHTML = `<b>Removing...</b>`;
+    window.api.requestDelete(uuid);
+  }
+
+  function cancel(uuid) {
+    console.log('cancel ', uuid)
+    document.getElementById(uuid).innerHTML = `<b>Cancelling...</b>`;
+    window.api.cancelDownload(uuid);
+    //document.getElementById(uuid).innerHTML = `<button class="button button-small" onclick="download('${uuid}')">Download</button>`;
+  }
+
+  function download(uuid, url) {
+    window.api.requestDownload(uuid, url);
+    document.getElementById(uuid).innerHTML = `
+    <span id="span_${uuid}">
+    <b>Starting download...</b>
+    </span>
+    <button class="button button-small end" onclick="cancel('${uuid}')">Cancel</button>`;
+  }
+  
+function run(uuid){
+  window.api.execute(uuid, document.getElementById('rhi_' + uuid).value)
+}
+</script>
+
+</html>

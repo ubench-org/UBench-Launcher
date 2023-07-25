@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UBench Launcher</title>
+  <link rel="stylesheet" href="public/css/style.css">
+  <script src="public/js/anime.min.js"></script>
+  <script src="public/js/scrollreveal.min.js"></script>
+
+</head>
+
+<body class="is-boxed has-animations">
+  <div class="body-wrap">
+
+    <main>
+      <br>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-inner">
+            <div class="hero-copy">
+              <h2>UBench Launcher</h2>
+              <hr>
+              <div id="specs" class="specs">
+              </div>
+
+                <a class="button start-button" >Settings</a>
+                <a id="btn_run" class="button end-button button-primary" href="vmanager.html">Benchmarks</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer>UBench Launcher 0.1</footer>
+      <span id="table" hidden></span>
+    </main>
+  </div>
+ <script>
+  window.api.getSpecs()
+  .then(({event, data}) => {
+    console.log(event, data)
+  });
+  
+
+  window.api.getManifest();
+  
+  function can_bench(){
+    let v = document.getElementById("version").value;
+    if (v) document.getElementById("rhi").style.visibility = "visible";
+    if (v) document.getElementById("btn_run").style.visibility = "visible";
+
+  }
+ </script>
+</body>
+
+</html>

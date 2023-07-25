@@ -1,0 +1,38 @@
+{
+  "name": "ubenchlauncher",
+  "version": "1.0.0",
+  "description": "UBench Benchmark Launcher",
+  "author": "UBench Organization",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "build": {
+    "appId": "UBench.Launcher",
+    "extraResources": [
+      "./preload.js"
+    ]
+  },
+  "keywords": [],
+  "license": "ISC",
+  "devDependencies": {
+    "@electron-forge/cli": "^6.2.1",
+    "@electron-forge/maker-deb": "^6.2.1",
+    "@electron-forge/maker-rpm": "^6.2.1",
+    "@electron-forge/maker-squirrel": "^6.2.1",
+    "@electron-forge/maker-zip": "^6.2.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
+    "electron": "^25.3.0",
+    "electron-reloader": "^1.2.3"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "fs-extra": "^11.1.1",
+    "nodejs-file-downloader": "^4.12.1",
+    "systeminformation": "^5.18.7",
+    "zip-local": "^0.3.5"
+  }
+}
