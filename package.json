@@ -29,6 +29,7 @@
     "axios": "^1.4.0",
     "electron-squirrel-startup": "^1.0.0",
     "fs-extra": "^11.1.1",
+    "jszip": "^3.10.1",
     "nodejs-file-downloader": "^4.12.1",
     "systeminformation": "^5.18.7",
     "zip-local": "^0.3.5"
