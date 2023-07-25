@@ -55,7 +55,7 @@ npm run package
 
 ## License
 
-Distributed under the MIT License. See [LICENSE.TXT](license.txt) for more information.
+Distributed under the GPL License. See [LICENSE.TXT](license.txt) for more information.
 
 ## Contact
 
