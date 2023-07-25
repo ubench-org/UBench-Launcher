@@ -1,9 +1,9 @@
 {
   "name": "ubenchlauncher",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "UBench Benchmark Launcher",
   "author": "UBench Organization",
-  "main": "main.js",
+  "main": "ubenchlauncher.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -11,9 +11,7 @@
   },
   "build": {
     "appId": "UBench.Launcher",
-    "extraResources": [
-      "./preload.js"
-    ]
+    "extraResources": []
   },
   "keywords": [],
   "license": "ISC",
