@@ -14,6 +14,7 @@
     </li>
     <li>
       <ul>
+        <li><a href="#release">Release</a></li>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#running">Running</a></li>
         <li><a href="#packaging">Packaging</a></li>
@@ -30,6 +31,12 @@ UBench Launcher is a download manager and launcher utility client for the UBench
   <a href="https://github.com/github_username/repo_name">
     <img src="./screenshot.png" alt="Logo" width="100%" height="auto">
   </a>
+
+## Release
+
+You probably want to [download the latest Prebuilt Package](https://github.com/ubench-org/UBench-Launcher/releases/).
+
+> Read further if you would like to build from scratch or contribute to development.
 
 
 ## Prerequisites
