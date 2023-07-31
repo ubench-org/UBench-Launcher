@@ -47,6 +47,7 @@ load_manifest();
 
 
 function load_manifest(event) {
+    console.log('lm')
     ax.get('/manifests?populate=*')
         .then(response => {
             return response.data;
@@ -59,7 +60,7 @@ function load_manifest(event) {
                 manifest[i].attributes['downloading'] = fs.pathExistsSync(path.join(rootDir, "cache", manifest[i].attributes.uuid))
             }
             fs.writeJSONSync(path.join(rootDir, "data", "manifest.json"), manifest);
-            event.sender.send('manifest', manifest)
+            //event.sender.send('manifest', manifest)
         })
 }
 
@@ -207,7 +208,7 @@ const createWindow = () => {
     ipcMain.on('delete', (event, uuid) => {
         fs.removeSync(path.join(rootDir, "bin", uuid));
         load_manifest();
-        event.sender.send('manifest', manifest)
+        //event.sender.send('manifest', manifest)
         console.log('delete', uuid)
     })
 
@@ -254,7 +255,7 @@ const createWindow = () => {
                 downloading = false;
                 fs.removeSync(path.join(rootDir, "cache", uuid));
                 load_manifest();
-                event.sender.send('manifest', manifest)
+                //event.sender.send('manifest', manifest)
                 console.log('error downloading', uuid, error)
             }
         }
@@ -269,7 +270,7 @@ const createWindow = () => {
             event.sender.send('cancelledDownload', uuid)
             fs.removeSync(path.join(rootDir, "bin", uuid));
             load_manifest();
-            event.sender.send('manifest', manifest)
+            //event.sender.send('manifest', manifest)
         }
 
     })
