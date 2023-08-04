@@ -15,6 +15,7 @@
 :root {
     --darker: #202020;
     --dark: #363636;
+    --light: #c1c5c8;
     --bs-blue: #1717e5;
     --bs-indigo: #6610f2;
     --bs-purple: #6f42c1;
@@ -98,7 +99,7 @@ body {
     font-size: var(--bs-body-font-size);
     font-weight: var(--bs-body-font-weight);
     line-height: var(--bs-body-line-height);
-    color: var(--bs-body-bg);
+    color: var(--light);
     text-align: var(--bs-body-text-align);
     background-color: var(--darker);
     -webkit-text-size-adjust: 100%;
@@ -131,7 +132,7 @@ body {
 }
 
 .logo h1 {
-    color: white;
+    color: var(--light);
     font-size: 0.9rem;
     padding-top: 9px;
 }
@@ -145,7 +146,7 @@ body {
     display: flex;
     transition: 0.1s ease-in-out all;
     text-decoration: none;
-    color: white;
+    color: var(--light);
     border-left: 0;
 }
 
@@ -153,6 +154,8 @@ body {
     width: 20px;
     height: 20px;
     padding: 18px;
+    filter: invert(85%) sepia(1%) saturate(808%) hue-rotate(175deg) brightness(96%) contrast(85%);
+
 }
 
 .active {
@@ -160,6 +163,7 @@ body {
     font-weight: bold;
     border-left: 4px solid white;
     transition: 0.1s ease-in-out all;
+    color: white;
 }
 
 .nav-item:hover {
@@ -215,12 +219,12 @@ body {
     width: 4em;
     height: 4em;
     border-radius: 50%;
-    background: #ffffff;
-    background: -moz-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
-    background: -webkit-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
-    background: -o-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
-    background: -ms-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
-    background: linear-gradient(to right, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+    background: var(--light);
+    background: -moz-linear-gradient(left, var(--light) 10%, rgba(255, 255, 255, 0) 42%);
+    background: -webkit-linear-gradient(left, var(--light) 10%, rgba(255, 255, 255, 0) 42%);
+    background: -o-linear-gradient(left, var(--light) 10%, rgba(255, 255, 255, 0) 42%);
+    background: -ms-linear-gradient(left, var(--light) 10%, rgba(255, 255, 255, 0) 42%);
+    background: linear-gradient(to right, var(--light) 10%, rgba(255, 255, 255, 0) 42%);
     position: relative;
     -webkit-animation: load3 1s infinite linear;
     animation: load3 1s infinite linear;
@@ -287,6 +291,9 @@ body {
 
 .sirow {
     display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+    align-items: center;
 }
 
 .key {
@@ -298,7 +305,7 @@ body {
     border: 2px solid var(--dark);
     box-shadow: 0;
     padding: 8px 16px;
-    color: white;
+    color: var(--light);
     font-weight: 500;
     font-size: 0.9rem;
     border-radius: 4px;
@@ -317,6 +324,7 @@ body {
     background-color: var(--dark);
     box-shadow: 0px 0px 4px var(--darker);
     transition: 0.1s ease-in-out all;
+    color: white;
 }
 
 .right {
@@ -384,7 +392,7 @@ textarea {
 .icon {
     width: 32px;
     height: 32px;
-    filter: invert();
+    filter: invert(85%) sepia(1%) saturate(808%) hue-rotate(175deg) brightness(96%) contrast(85%);
     top: 0;
 }
 
@@ -421,7 +429,7 @@ textarea {
 }
 
 .card {
-    border: 2px solid var(--bs-border-color-translucent);
+    border: 2px solid var(--light);
     padding: 8px 32px 32px 32px;
     border-radius: 20px;
     margin: 8px;
@@ -441,13 +449,13 @@ select {
     padding: 4px;
     font-size: 1em;
     background-color: var(--darker);
-    color: white;
+    color: var(--light);
     border: none;
 }
 
 .tag {
     display: inline-block;
-    border: 1px solid white;
+    border: 1px solid var(--light);
     border-radius: 10px;
     width: auto;
     padding: 4px 8px;
@@ -471,5 +479,8 @@ select {
     padding: 2px;
 }
 
-.filter>img {
+.system-icon {
+    width: 48px;
+    height: 48px;
+    padding: 16px;
 }

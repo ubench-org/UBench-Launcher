@@ -12,10 +12,6 @@
 
     <%- include ('navbar') %>
 
-    <div class="toolbar">
-        <button class="btn btn-sm">Report Issue</button>
-    </div>
-
     <div class="content">
         <div id="contents" class="contents"></div>
         <p hidden id="sysinfo"><%=sysinfo%></p>
@@ -36,17 +32,17 @@
     document.getElementById("contents").innerHTML = `
     <p class="sirow"><b>${sysinfo.system.model}</b></p>
     <line/>
-    <p class="sirow"><b class="key">Board</b> ${sysinfo.board.model}<br>Version ${sysinfo.board.version}<br>Made by ${sysinfo.board.manufacturer}</p>
+    <p class="sirow"><img class="system-icon" src="./icons/grey/motherboard.png"><b class="key">Board</b> ${sysinfo.board.model}<br>Version ${sysinfo.board.version}<br>Made by ${sysinfo.board.manufacturer}</p>
     <line/>
-    <p class="sirow"><b class="key">CPU</b> ${sysinfo.cpu.brand}<br>${sysinfo.cpu.processors} x ${sysinfo.cpu.speed} GHz<br>${sysinfo.cpu.cores} Core / ${sysinfo.cpu.threads} Thread</p>
+    <p class="sirow"><img class="system-icon" src="./icons/grey/cpu.png"><b class="key">Processor</b> ${sysinfo.cpu.brand}<br>${sysinfo.cpu.processors} x ${sysinfo.cpu.speed} GHz<br>${sysinfo.cpu.cores} Core / ${sysinfo.cpu.threads} Thread</p>
     <line/>
-    <p class="sirow"><b class="key">GPU</b> ${gpus}</p>
+    <p class="sirow"><img class="system-icon" src="./icons/grey/gpu.png"><b class="key">GPU</b> ${gpus}</p>
     <line/>
-    <p class="sirow"><b class="key">Memory</b> ${sysinfo.ram} GB</p>
+    <p class="sirow"><img class="system-icon" src="./icons/grey/ram.png"><b class="key">Memory</b> ${sysinfo.ram} GB</p>
     <line/>
-    <p class="sirow"><b class="key">Disks</b> ${disks}</p>
+    <p class="sirow"><img class="system-icon" src="./icons/grey/disk.png"><b class="key">Disks</b> ${disks}</p>
     <line/>
-    <p class="sirow"><b class="key">OS</b> ${sysinfo.os.distro}</p>
+    <p class="sirow"><img class="system-icon" src="./icons/grey/os.png"><b class="key">OS</b> ${sysinfo.os.distro}</p>
     `;
 </script>
 
