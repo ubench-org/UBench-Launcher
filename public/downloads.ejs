@@ -11,11 +11,87 @@
 <body>
 
     <%- include ('navbar') %>
-
+    <div class="toolbar">
+        <div class="filter">
+            <b>UE:</b><select>
+                <option>All</option>
+                <option>4.27.2</option>
+                <option>5.0.3</option>
+                <option>5.1.1</option>
+                <option>5.2.1</option>
+            </select>
+            <b>RHI:</b><select>
+                <option>All</option>
+                <option>DX11</option>
+                <option>DX12</option>
+                <option>Vulkan</option>
+            </select>
+            <b>OS:</b><select>
+                <option>All</option>
+                <option>Windows</option>
+                <option>MacOS</option>
+                <option>Linux</option>
+            </select>
+            </div>
+    </div>
     <div class="content">
-
+        <div id="contents" class="main">
+            <div class="loader">
+                <div class="loading"></div>
+            </div>
+            <div class="row">
+                
+            </div>
+        </div>
     </div>
 </body>
 <script src="./js/app.js"></script>
-
+<script>
+    let url = "https://firestore.googleapis.com/v1/projects/ubench-75d3f/databases/(default)/documents/downloads"
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data.documents);
+        let cards = `<div class="row">`;
+        let d = data.documents;
+        for (var i = 0; i < d.length; i++){
+            if (d[i].fields.Available.booleanValue == true)
+            var tags = ``;
+            var t = d[i].fields.Tags.arrayValue.values;
+            for (ii = 0; ii < t.length; ii++){
+                tags += `<div class="tag">${t[ii].stringValue}</div>`;
+            }
+            cards += `
+            <div class="card">
+                <h3>${d[i].fields.Title.stringValue}</h3>
+                <p>UE: ${d[i].fields["Unreal Engine Version"].stringValue}</p>
+                <p>RHI: ${d[i].fields.RHI.stringValue}</p>
+                <p>OS: ${d[i].fields.Platform.stringValue}</p>
+                <p>Size: ${d[i].fields.Size.integerValue} GB</p>
+                <p>Tags: ${tags}</p>
+                <button class="btn">Download</button>
+            </div>
+                `;
+            cards += `
+            <div class="card">
+                <h3>${d[i].fields.Title.stringValue}</h3>
+                <p>UE: ${d[i].fields["Unreal Engine Version"].stringValue}</p>
+                <p>RHI: ${d[i].fields.RHI.stringValue}</p>
+                <p>OS: ${d[i].fields.Platform.stringValue}</p>
+                <p>Size: ${d[i].fields.Size.integerValue} GB</p>
+                <p>Tags: ${tags}</p>
+                <button class="btn">Download</button>
+            </div>
+                `;
+        }
+        cards += `</div>`;
+        document.getElementById("contents").innerHTML = cards;
+      })
+      .catch(function (e) {
+        // handle the error
+        console.log(e)
+      });
+</script>
 </html>

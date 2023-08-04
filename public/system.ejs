@@ -12,11 +12,13 @@
 
     <%- include ('navbar') %>
 
+    <div class="toolbar">
+        <button class="btn btn-sm">Report Issue</button>
+    </div>
+
     <div class="content">
-        <div class="main">
-            <div id="contents"></div>
-            <p hidden id="sysinfo"><%=sysinfo%></p>
-        </div>
+        <div id="contents" class="contents"></div>
+        <p hidden id="sysinfo"><%=sysinfo%></p>
     </div>
 </body>
 <script src="./js/app.js"></script>
@@ -45,9 +47,6 @@
     <p class="sirow"><b class="key">Disks</b> ${disks}</p>
     <line/>
     <p class="sirow"><b class="key">OS</b> ${sysinfo.os.distro}</p>
-
-    
-    <button class="btn btn-sm right">Report Issue</button>
     `;
 </script>
 
