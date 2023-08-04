@@ -12,4 +12,5 @@ function change_selected_menu_item(){
     }
     document.getElementById(id).classList.add("active");
     document.getElementById("title").innerHTML = id;
+    document.getElementById("title_img").src = `./icons/${id}.svg`;
 }

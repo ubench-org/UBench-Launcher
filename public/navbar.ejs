@@ -11,13 +11,13 @@
         <img class="svg" src="./icons/benchmarks.svg" alt="Benchmarks"/>
         <p>Benchmarks</p>
     </a>
+    <a href="./benchmarks.ejs" id="Results" class="nav-item" onclick="select_menu(this.id)">
+        <img class="svg" src="./icons/results.svg" alt="Benchmarks"/>
+        <p>Results</p>
+    </a>
     <a href="./downloads.ejs" id="Downloads" class="nav-item" onclick="select_menu(this.id)">
         <img class="svg" src="./icons/downloads.svg" alt="Downloads"/>
         <p>Downloads</p>
-    </a>
-    <a href="./support.ejs" id="Support" class="nav-item" onclick="select_menu(this.id)">
-        <img class="svg" src="./icons/support.svg" alt="Support"/>
-        <p>Support</p>
     </a>
     
     <div class="bottom">
@@ -32,4 +32,9 @@
             <p hidden id="selected_menu_item"><%=menu%></p>
         </a>
     </div>
+</div>
+
+<div id="header">
+    <img id="title_img" class="icon" src=""> 
+    <h2 id="title" class="title"></h2>
 </div>
