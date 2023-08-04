@@ -15,6 +15,7 @@ const si = require('systeminformation');
 const axios = require('axios');
 const Downloader = require("nodejs-file-downloader");
 var zipper = require("zip-local");
+const ejse = require('ejs-electron')
 var execFile = require('child_process').execFile,
     child;
 
@@ -43,7 +44,7 @@ const ax = axios.create({
 });
 
 let manifest = [];
-load_manifest();
+//load_manifest();
 
 
 function load_manifest(event) {
@@ -78,6 +79,8 @@ let checks = -1;
 let downloading = false;
 let downloader;
 
+
+analyze_system();
 
 function analyze_system() {
     checks = 0;
@@ -158,7 +161,10 @@ function analyze_system() {
         if (checks >= 8) {
             checks = 0;
             has_sysinfo = true;
-            createWindow();
+
+            ejse.data("version", fs.readJSONSync(path.join(rootDir, "package.json")).version);
+            ejse.data('sysinfo',JSON.stringify(fs.readJsonSync(path.join(rootDir, "data", "sysinfo.json"))));
+            ejse.data("menu", "System");
             fs.writeJsonSync(path.join(rootDir, "data", "sysinfo.json"), {
                 "uuid": uuid,
                 "system": system,
@@ -169,15 +175,17 @@ function analyze_system() {
                 "ram": mem,
                 "disks": disks
             });
+            createWindow();
         }
     }, 500);
 }
 
 
+let mainWindow;
 
 const createWindow = () => {
     // Create the browser window.
-    const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         width: 600,
         height: 400,
         backgroundColor: "#121212",
@@ -186,23 +194,24 @@ const createWindow = () => {
             preload: path.join(rootDir, "public", "js", 'preload.js'),
             nodeIntegration: true
         },
-        minWidth: 600,
-        minHeight: 400,
+        minWidth: 800,
+        minHeight: 600,
         autoHideMenuBar: true,
-        titleBarStyle: 'hidden',
-        titleBarOverlay: {
-            color: '#121212',
-            symbolColor: '#d7d7d7',
-            height: 32
-        },
         title: "UBench Launcher"
     })
+    
 
+    ipcMain.on('load', (event) => {
+        event.sender.send('load');
+    })
 
+    ipcMain.on('changePage', (event, id) => {
+        ejse.data("menu", id);
+    })
 
     ipcMain.on('getSpecs', (event) => {
         let specs = fs.readJsonSync(path.join(rootDir, "data", "sysinfo.json"));
-        event.sender.send('ipcsuccess', specs)
+        event.sender.send('sysinfo', specs)
     })
 
     ipcMain.on('delete', (event, uuid) => {
@@ -214,9 +223,9 @@ const createWindow = () => {
 
     ipcMain.on('getManifest', (event) => {
         load_manifest(event);
-/*         setTimeout(() => {
-            event.sender.send('manifest', manifest)
-        }, 1000); */
+        /*         setTimeout(() => {
+                    event.sender.send('manifest', manifest)
+                }, 1000); */
     })
 
     ipcMain.on('requestDownload', async (event, uuid, url) => {
@@ -292,7 +301,7 @@ const createWindow = () => {
 
     if (require('electron-squirrel-startup')) app.quit();
     // and load the index.html of the app.
-    mainWindow.loadFile('./public/index.html')
+    mainWindow.loadURL(path.join(rootDir, "public", "system.ejs"))
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()
@@ -302,6 +311,7 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+    
     const options = {
         type: 'question',
         buttons: ['Disagree', 'Yes, collect anonymous data'],
@@ -316,9 +326,8 @@ app.whenReady().then(() => {
         if (d < 1) process.exit();
         else fs.writeJSONSync(path.join(rootDir, "data", "sysinfo.json"), {});
     }
-    analyze_system();
 
-
+    
     app.on('activate', () => {
         // On macOS it's common to re-create a window in the app when the
         // dock icon is clicked and there are no other windows open.
