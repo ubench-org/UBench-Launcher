@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UBench Launcher</title>
+
+    <style>
+        @font-face {
+    font-family: 'Roboto';
+    src: url('./css/fonts/Roboto-Regular.ttf') format('embedded-opentype'),
+        /* Internet Explorer */
+        url('./css/fonts/Roboto-Regular.ttf') format('woff2'),
+        /* Super Modern Browsers */
+        url('./css/fonts/Roboto-Regular.ttf') format('woff'),
+        /* Pretty Modern Browsers */
+        url('./css/fonts/Roboto-Regular.ttf') format('truetype'),
+        /* Safari, Android, iOS */
+        url('./css/fonts/Roboto-Regular.ttf') format('svg');
+    /* Legacy iOS */
+}
+        html {
+            background-color: #202020;
+            color: #c1c5c8;
+            font-family: "Roboto";
+        }
+
+        .spinner-xl {
+            border: 8px solid white;
+            border-radius: 50%;
+            width: 128px;
+            height: 128px;
+            animation: pulse 1s linear infinite;
+            margin: auto;
+            position: absolute;
+            top: 52px;
+            left: calc(50% - 68px);
+        }
+
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+                scale: 0.9;
+            }
+
+            100% {
+                opacity: 0;
+                scale: 1.1;
+            }
+        }
+
+        .logo {
+            width: 128px;
+            height: 128px;
+            top: 60px;
+            left: calc(50% - 60px);
+            position: absolute;
+        }
+
+        p {
+            text-align: center;
+            width: 200px;
+            left: calc(50% - 100px);
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+
+        #version {
+            position: absolute;
+            bottom: 0;
+        }
+
+        #title {
+            position: absolute;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <p id="title">&copy; UBench Organization</p>
+    <img src="./icons/logo.png" class="logo">
+    <div class="spinner-xl"></div>
+    <p id="version"><%=version%></p>
+</body>
+
+</html>

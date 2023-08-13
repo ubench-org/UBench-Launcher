@@ -162,9 +162,7 @@ function analyze_system() {
             checks = 0;
             has_sysinfo = true;
 
-            ejse.data("version", fs.readJSONSync(path.join(rootDir, "package.json")).version);
             ejse.data('sysinfo', JSON.stringify(fs.readJsonSync(path.join(rootDir, "data", "sysinfo.json"))));
-            ejse.data("menu", "System");
             fs.writeJsonSync(path.join(rootDir, "data", "sysinfo.json"), {
                 "uuid": uuid,
                 "system": system,
@@ -184,19 +182,20 @@ function analyze_system() {
 let mainWindow;
 let splashWindow;
 
+ejse.data("version", fs.readJSONSync(path.join(rootDir, "package.json")).version);
 const splash = () => {
 
     splashWindow = new BrowserWindow({
         width: 400,
         height: 250,
-        transparent: false,
+        transparent: true,
         frame: false,
         alwaysOnTop: true
     });
-    splashWindow.loadFile(path.join(rootDir, "public", "splash.html"))
-   
+    splashWindow.loadURL(path.join(rootDir, "public", "splash.ejs"))
+
     splashWindow.once('ready-to-show', () => {
-         splashWindow.center();
+        splashWindow.center();
     })
 
 }

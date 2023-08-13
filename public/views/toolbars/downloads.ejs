@@ -1,25 +1,25 @@
 <div id="downloads_toolbar" hidden class="toolbar_view">
     <div class="filter">
-        <b>UE</b><select id="uev_s" onchange="filter_by_uev(this.value)">
+        <b>UE</b><select id="uev_s" onchange="filter_by_uev(this.value)" title="Filter by Unreal Engine version">
             <option>All</option>
             <option>4.27.2</option>
             <option>5.0.3</option>
             <option>5.1.1</option>
             <option>5.2.1</option>
         </select>
-        <b>RHI</b><select id="rhi_s" onchange="filter_by_rhi(this.value)">
+        <b>RHI</b><select id="rhi_s" onchange="filter_by_rhi(this.value)" title="Filter by RHI">
             <option>All</option>
             <option>DX11</option>
             <option>DX12</option>
             <option>Vulkan</option>
             <option>Metal</option>
         </select>
-        <b>OS</b><select id="os_s" onchange="filter_by_os(this.value)">
+        <b>OS</b><select id="os_s" onchange="filter_by_os(this.value)" title="Filter by Platform">
             <option>All</option>
             <option>Windows</option>
             <option>MacOS</option>
             <option>Linux</option>
         </select>
-        <button onclick="reset_filters();" class="btn btn-sm">Reset</button>
+        <button onclick="reset_filters();" class="btn btn_icon" title="Reset Filters"><img class="btn-icon" src="./icons/reset.svg"></button>
     </div>
 </div>

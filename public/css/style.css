@@ -318,6 +318,12 @@ body {
 .btn-sm {
     font-size: 0.75rem;
     padding: 4px 8px;
+    height: 32px;
+    margin: 12px;
+}
+
+.toolbar > .btn-sm {
+    margin: 0;
 }
 
 .btn:hover {
@@ -325,6 +331,10 @@ body {
     box-shadow: 0px 0px 4px var(--darker);
     transition: 0.1s ease-in-out all;
     color: white;
+}
+
+.m0 {
+    margin: 0;
 }
 
 .right {
@@ -487,30 +497,6 @@ select {
 .hidden {
     visibility: collapse;
 }
-.spinner-xl {
-    border: 8px solid white;
-    border-radius: 50%;
-    width: 128px;
-    height: 128px;
-    animation: pulse 1s linear infinite;
-    margin: auto;
-    position: absolute;
-    top: 46px;
-    left: calc(50% - 68px);
-}
-
-
-@keyframes pulse {
-    0% {
-        opacity: 1;
-        scale: 0.9;
-    }
-
-    100% {
-        opacity: 0;
-        scale: 1.1;
-    }
-}
 
 .spinner {
     border: 2px solid var(--dark);
@@ -537,4 +523,20 @@ select {
 .btn-light {
     background-color: var(--light);
     color: var(--dark);
+}
+
+
+.btn_icon {
+    min-width: 28px !important;
+    padding: 2px;
+}
+
+.btn-icon {
+    width: 14px;
+    height: 14px;
+    filter: invert();
+}
+
+a {
+    text-decoration: none;
 }

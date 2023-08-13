@@ -1,29 +1,4 @@
-let sysinfo = JSON.parse(document.getElementById("sysinfo").innerHTML);
-console.log(sysinfo)
-let disks = ``;
-let gpus = ``;
-for (var i = 0; i < sysinfo.disks.length; i++) {
-    disks += `${sysinfo.disks[i].name} ${sysinfo.disks[i].size} GB<br>`;
-}
-for (var i = 0; i < sysinfo.gpu.length; i++) {
-    gpus += `${sysinfo.gpu[i].model} ${sysinfo.gpu[i].vram} MB<br>`;
-}
-document.getElementById("system_content").innerHTML = `
-    <p class="sirow"><b>${sysinfo.system.model}</b></p>
-    <line/>
-    <p class="sirow"><img class="system-icon" src="./icons/grey/os.png"><b class="key">System</b> ${sysinfo.os.distro} ${sysinfo.os.arch}</p>
-    <line/>
-    <p class="sirow"><img class="system-icon" src="./icons/grey/motherboard.png"><b class="key">Board</b> ${sysinfo.board.model}<br>Version ${sysinfo.board.version}<br>Made by ${sysinfo.board.manufacturer}</p>
-    <line/>
-    <p class="sirow"><img class="system-icon" src="./icons/grey/cpu.png"><b class="key">Processor</b> ${sysinfo.cpu.brand}<br>${sysinfo.cpu.processors} x ${sysinfo.cpu.speed} GHz<br>${sysinfo.cpu.cores} Core / ${sysinfo.cpu.threads} Thread</p>
-    <line/>
-    <p class="sirow"><img class="system-icon" src="./icons/grey/gpu.png"><b class="key">Graphics</b> ${gpus}</p>
-    <line/>
-    <p class="sirow"><img class="system-icon" src="./icons/grey/ram.png"><b class="key">Memory</b> ${sysinfo.ram} GB</p>
-    <line/>
-    <p class="sirow"><img class="system-icon" src="./icons/grey/disk.png"><b class="key">Storage</b> ${disks}</p>
-    <line/>
-    `;
+
 
 let v = window.localStorage.getItem("view_id") || "system";
 change_selected_menu_item(v);

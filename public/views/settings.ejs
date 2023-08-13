@@ -1,10 +1,15 @@
 <div hidden id="settings_content" class="view">
+    <div class="row">
+        <p>System Data</p>
+        <button class="btn btn-sm">Clear</button>
+    </div>
+    <div class="row">
+        <p>Benchmark Library</p>
+        <button class="btn btn-sm">Clear</button>
+    </div>
     <p id="version_p">UBench Launcher Version</p>
     <p hidden id="version"><%=version%></p>
     <p>&copy; UBench Organization</p>
-    
-    <img src="./icons/logo.png" class="logo">
-    <div class="spinner-xl"></div>
 </div>
 <script>
     let version = document.getElementById("version").innerHTML; //.toString().split(".");
