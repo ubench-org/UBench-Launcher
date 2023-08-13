@@ -163,7 +163,7 @@ function analyze_system() {
             has_sysinfo = true;
 
             ejse.data("version", fs.readJSONSync(path.join(rootDir, "package.json")).version);
-            ejse.data('sysinfo',JSON.stringify(fs.readJsonSync(path.join(rootDir, "data", "sysinfo.json"))));
+            ejse.data('sysinfo', JSON.stringify(fs.readJsonSync(path.join(rootDir, "data", "sysinfo.json"))));
             ejse.data("menu", "System");
             fs.writeJsonSync(path.join(rootDir, "data", "sysinfo.json"), {
                 "uuid": uuid,
@@ -182,9 +182,28 @@ function analyze_system() {
 
 
 let mainWindow;
+let splashWindow;
+
+const splash = () => {
+
+    splashWindow = new BrowserWindow({
+        width: 400,
+        height: 250,
+        transparent: false,
+        frame: false,
+        alwaysOnTop: true
+    });
+    splashWindow.loadFile(path.join(rootDir, "public", "splash.html"))
+   
+    splashWindow.once('ready-to-show', () => {
+         splashWindow.center();
+    })
+
+}
 
 const createWindow = () => {
     // Create the browser window.
+    splashWindow.close();
     mainWindow = new BrowserWindow({
         width: 600,
         height: 400,
@@ -199,7 +218,7 @@ const createWindow = () => {
         autoHideMenuBar: true,
         title: "UBench Launcher"
     })
-    
+
 
     ipcMain.on('load', (event) => {
         event.sender.send('load');
@@ -311,7 +330,9 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-    
+
+    splash();
+
     const options = {
         type: 'question',
         buttons: ['Disagree', 'Yes, collect anonymous data'],
@@ -327,11 +348,14 @@ app.whenReady().then(() => {
         else fs.writeJSONSync(path.join(rootDir, "data", "sysinfo.json"), {});
     }
 
-    
+
     app.on('activate', () => {
         // On macOS it's common to re-create a window in the app when the
         // dock icon is clicked and there are no other windows open.
-        if (BrowserWindow.getAllWindows().length === 0) createWindow()
+        if (BrowserWindow.getAllWindows().length === 0) {
+            createWindow();
+            splashWindow.hide();
+        }
     })
 })
 

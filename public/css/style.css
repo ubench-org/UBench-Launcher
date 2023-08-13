@@ -487,6 +487,30 @@ select {
 .hidden {
     visibility: collapse;
 }
+.spinner-xl {
+    border: 8px solid white;
+    border-radius: 50%;
+    width: 128px;
+    height: 128px;
+    animation: pulse 1s linear infinite;
+    margin: auto;
+    position: absolute;
+    top: 46px;
+    left: calc(50% - 68px);
+}
+
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        scale: 0.9;
+    }
+
+    100% {
+        opacity: 0;
+        scale: 1.1;
+    }
+}
 
 .spinner {
     border: 2px solid var(--dark);
