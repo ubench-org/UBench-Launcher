@@ -1,9 +1,117 @@
     <div hidden id="downloads_content" class="view">
-         <div class="loader">
+        <div class="loader">
             <div class="loading"></div>
         </div>
         <div class="row">
 
         </div>
-        
+
     </div>
+    <script>
+        let url = "https://firestore.googleapis.com/v1/projects/ubench-75d3f/databases/(default)/documents/downloads"
+        fetch(url)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data.documents);
+                let cards = `<div class="row">`;
+                let d = data.documents;
+                for (var i = 0; i < d.length; i++) {
+                    if (d[i].fields.Available.booleanValue == true)
+                        var tags = ``;
+                    var t = d[i].fields.Tags.arrayValue.values;
+                    for (ii = 0; ii < t.length; ii++) {
+                        tags += `<div class="tag">${t[ii].stringValue}</div>`;
+                    }
+                    cards += `
+        <div id="${d[i].fields.Title.stringValue}" class="card" ue="${d[i].fields["Unreal Engine Version"].stringValue}" rhi="${d[i].fields.RHI.stringValue}" os="${d[i].fields.Platform.stringValue}">
+            <h3>${d[i].fields.Title.stringValue}</h3>
+            <p class="uev_p">UE: ${d[i].fields["Unreal Engine Version"].stringValue}</p>
+            <p class="rhi_p">RHI: ${d[i].fields.RHI.stringValue}</p>
+            <p class="os_p">OS: ${d[i].fields.Platform.stringValue}</p>
+            <p>Size: ${d[i].fields.Size.integerValue} GB</p>
+            <p>Tags: ${tags}</p>
+            <button class="btn">Download</button>
+        </div>
+            `;
+
+                }
+                cards += `</div>`;
+                document.getElementById("downloads_content").innerHTML = cards;
+
+            })
+            .catch(function (e) {
+                // handle the error
+                console.log(e)
+            });
+
+        let uev, rhiv, osv = '';
+
+        function filter_by_uev(v) {
+            var n = document.getElementsByClassName("uev_p");
+            if (v == "All") {
+                for (var i = 0; i < n.length; i++) {
+                    n[i].parentElement.hidden = false;
+                }
+            } else {
+                for (var i = 0; i < n.length; i++) {
+                    if (n[i].innerHTML == `UE: ${v}`) {
+                        //n[i].parent.hidden = true;
+                        n[i].parentElement.hidden = false;
+                        console.log(n[i].parentElement)
+                    } else {
+                        n[i].parentElement.hidden = true;
+                    }
+                }
+            }
+        }
+
+        function filter_by_rhi(v) {
+            var n = document.getElementsByClassName("rhi_p");
+            if (v == "All") {
+                for (var i = 0; i < n.length; i++) {
+                    n[i].parentElement.hidden = false;
+                }
+            } else {
+                for (var i = 0; i < n.length; i++) {
+                    if (n[i].innerHTML == `RHI: ${v}`) {
+                        //n[i].parent.hidden = true;
+                        n[i].parentElement.hidden = false;
+                        console.log(n[i].parentElement)
+                    } else {
+                        n[i].parentElement.hidden = true;
+                    }
+                }
+            }
+        }
+
+        function filter_by_os(v) {
+            var n = document.getElementsByClassName("os_p");
+            if (v == "All") {
+                for (var i = 0; i < n.length; i++) {
+                    n[i].parentElement.hidden = false;
+                }
+            } else {
+                for (var i = 0; i < n.length; i++) {
+                    if (n[i].innerHTML == `OS: ${v}`) {
+                        //n[i].parent.hidden = true;
+                        n[i].parentElement.hidden = false;
+                        console.log(n[i].parentElement)
+                    } else {
+                        n[i].parentElement.hidden = true;
+                    }
+                }
+            }
+        }
+
+        function reset_filters() {
+            var n = document.getElementsByClassName("rhi_p");
+            for (var i = 0; i < n.length; i++) {
+                n[i].parentElement.hidden = false;
+            }
+            document.getElementById("rhi_s").value = "All";
+            document.getElementById("os_s").value = "All";
+            document.getElementById("uev_s").value = "All";
+        }
+    </script>

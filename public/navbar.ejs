@@ -15,3 +15,29 @@
     <img id="title_img" class="icon" src="">
     <h2 id="title" class="title"></h2>
 </div>
+
+<script>
+    let navitems = ["System", "Benchmarks", "Scores", "Downloads"];
+
+    let navitems_bottom = ["Account", "Settings"];
+
+    for (var i = 0; i < navitems.length; i++) {
+        let n = navitems[i];
+        document.getElementById("navbar").innerHTML += `
+        <a id="${n.toLowerCase()}" class="nav-item" onclick="change_selected_menu_item(this.id)">
+            <img class="svg" src="./icons/${n}.svg" alt="${n}"/>
+            <p>${n}</p>
+        </a>
+    `;
+    }
+
+    for (var i = 0; i < navitems_bottom.length; i++) {
+        let n = navitems_bottom[i];
+        document.getElementById("navbar_bottom").innerHTML += `
+        <a id="${n.toLowerCase()}" class="nav-item" onclick="change_selected_menu_item(this.id)">
+            <img class="svg" src="./icons/${n}.svg" alt="${n}"/>
+            <p>${n}</p>
+        </a>
+    `;
+    }
+</script>

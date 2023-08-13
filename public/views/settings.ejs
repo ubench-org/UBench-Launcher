@@ -1,4 +1,47 @@
 <div hidden id="settings_content" class="view">
-    <p>UBench Launcher Version <%=version%></p>
+    <p id="version_p">UBench Launcher Version</p>
+    <p hidden id="version"><%=version%></p>
     <p>&copy; UBench Organization</p>
 </div>
+<script>
+    let version = document.getElementById("version").innerHTML; //.toString().split(".");
+    document.getElementById("version_p").innerHTML =
+        `UBencher Launcher Version ${version}`;
+
+    function check_for_updates() {
+        document.getElementById("btn_update").innerHTML = `<div class="spinner"></div>`;
+
+        let versions_url =
+            "https://firestore.googleapis.com/v1/projects/ubench-75d3f/databases/(default)/documents/versions"
+        fetch(versions_url)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                let d = data.documents;
+                var new_v = false;
+                for (var i = 0; i < d.length; i++) {
+                    let v = `${d[i].fields.version.stringValue}`;
+
+                    if (v.localeCompare(version, undefined, {
+                            numeric: true,
+                            sensitivity: 'base'
+                        }) == 1) {
+                        new_v = true;
+                    }
+                }
+                if (new_v) {
+                    document.getElementById("btn_update").classList.add("btn-light");
+                    document.getElementById("btn_update").innerHTML = "A new update is available"
+                } else {
+                    document.getElementById("btn_update").classList.remove("btn-light");
+                    document.getElementById("btn_update").innerHTML = "No updates available"
+
+                }
+            })
+            .catch(function (e) {
+                // handle the error
+                console.log(e)
+            });
+    }
+</script>
