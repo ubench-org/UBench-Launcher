@@ -1,40 +1,17 @@
-<div class="navbar">
+<div id="navbar" class="navbar">
     <div class="logo">
-        <img src="./icons/logo.png" alt="UBench Logo"/>
+        <img src="./icons/logo.png" alt="UBench Logo" />
         <h1>UBench Launcher</h1>
     </div>
-    <a href="./system.ejs" id="System" class="nav-item" onclick="select_menu(this.id)">
-        <img class="svg" src="./icons/system.svg" alt="System"/>
-        <p>System</p>
-    </a>
-    <a href="./benchmarks.ejs" id="Benchmarks" class="nav-item" onclick="select_menu(this.id)">
-        <img class="svg" src="./icons/benchmarks.svg" alt="Benchmarks"/>
-        <p>Benchmarks</p>
-    </a>
-    <a href="./scores.ejs" id="Scores" class="nav-item" onclick="select_menu(this.id)">
-        <img class="svg" src="./icons/Scores.svg" alt="Scores"/>
-        <p>Scores</p>
-    </a>
-    <a href="./downloads.ejs" id="Downloads" class="nav-item" onclick="select_menu(this.id)">
-        <img class="svg" src="./icons/downloads.svg" alt="Downloads"/>
-        <p>Downloads</p>
-    </a>
 
-    <div class="bottom">
-        <a href="./account.ejs" id="Account" class="nav-item" onclick="select_menu(this.id)">
-            <img class="svg" src="./icons/account.svg" alt="Account"/>
-            <p>Account</p>
-        </a>
+    <div id="navbar_bottom" class="bottom">
 
-        <a href="./settings.ejs" id="Settings" class="nav-item" onclick="select_menu(this.id)">
-            <img class="svg" src="./icons/settings.svg" alt="Settings"/>
-            <p>Settings</p>
-            <p hidden id="selected_menu_item"><%=menu%></p>
-        </a>
     </div>
+    <p hidden id="selected_menu_item"><%=menu%></p>
+
 </div>
 
 <div id="header">
-    <img id="title_img" class="icon" src=""> 
+    <img id="title_img" class="icon" src="">
     <h2 id="title" class="title"></h2>
 </div>

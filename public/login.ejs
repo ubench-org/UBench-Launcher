@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UBench Launcher</title>
+    <style>
+        @font-face {
+            font-family: 'Roboto';
+            src: url('./css/fonts/Roboto-Regular.ttf') format('embedded-opentype'),
+                /* Internet Explorer */
+                url('./css/fonts/Roboto-Regular.ttf') format('woff2'),
+                /* Super Modern Browsers */
+                url('./css/fonts/Roboto-Regular.ttf') format('woff'),
+                /* Pretty Modern Browsers */
+                url('./css/fonts/Roboto-Regular.ttf') format('truetype'),
+                /* Safari, Android, iOS */
+                url('./css/fonts/Roboto-Regular.ttf') format('svg');
+            /* Legacy iOS */
+        }
+
+        :root {
+            --darker: #202020;
+            --dark: #363636;
+            --light: #f8f9fa;
+        }
+
+        html {
+            background-color: var(--darker);
+            color: var(--light);
+            font-family: "Roboto";
+        }
+
+        .content {
+            margin: auto !important;
+            padding-top: 120px;
+            width: 450px;
+            height: 400px;
+        }
+
+        input {
+            background-color: var(--darker);
+            color: var(--light);
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 2px solid var(--dark);
+            width: 75%;
+        }
+
+        input::focus {
+            color: red;
+        }
+
+        .btn {
+            background-color: #111;
+            border: 2px solid var(--dark);
+            box-shadow: 0;
+            padding: 0.5rem;
+            color: var(--light);
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            line-height: 1rem;
+            cursor: pointer;
+            transition: 0.1s ease-in-out all;
+            width: 10%;
+            min-height: 76px;
+            position: absolute;
+            top: 289px;
+        }
+
+        .btn:hover {
+            background-color: var(--dark);
+            box-shadow: 0px 0px 4px var(--darker);
+            transition: 0.1s ease-in-out all;
+            color: white;
+        }
+
+        a {
+            color: var(--light);
+            font-size: 0.75rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        img {
+            width: 48px;
+            padding: 0px 10px;
+        }
+
+        h2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .box {
+            border: 2px solid var(--dark);
+            padding: 10px 20px 20px 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="content">
+        <div id="contents" class="contents"></div>
+        <h2>
+            <img src="icons/logo.png"> 
+            UBench Launcher</h2>
+        <div class="box">
+        <h4>Login</h4>
+        <div>
+            <input type="email" placeholder="email">
+            <input type="password" placeholder="password">
+            <button onclick="window.location = 'system.ejs'" class="btn">Login</button>
+        </div>
+        </div>
+        <footer>
+            <a href="#">Login with Google</a> |
+            <a href="#">Reset Password</a> |
+            <a href="#">Create Account</a>
+        </footer>
+
+    </div>
+</body>
+
+
+</html>

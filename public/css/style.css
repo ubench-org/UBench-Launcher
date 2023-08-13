@@ -484,3 +484,7 @@ select {
     height: 48px;
     padding: 16px;
 }
+
+.hidden {
+    visibility: collapse;
+}

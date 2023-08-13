@@ -301,7 +301,7 @@ const createWindow = () => {
 
     if (require('electron-squirrel-startup')) app.quit();
     // and load the index.html of the app.
-    mainWindow.loadURL(path.join(rootDir, "public", "system.ejs"))
+    mainWindow.loadURL(path.join(rootDir, "public", "index.ejs"))
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()

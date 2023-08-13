@@ -9,9 +9,24 @@
 </head>
 
 <body>
-    <div class="loader">
-        <div class="loading"></div>
+
+    <%- include ('navbar') %>
+
+    <div class="content">
+        <div id="contents" class="contents">
+
+            <p hidden id="sysinfo"><%=sysinfo%></p>
+
+            <%- include ('./views/system') %>
+            <%- include ('./views/benchmarks') %>
+            <%- include ('./views/scores') %>
+            <%- include ('./views/downloads') %>
+            
+            <%- include ('./views/account') %>
+            <%- include ('./views/settings') %>
+        </div>
     </div>
 </body>
+<script src="./js/app.js"></script>
 
 </html>
