@@ -3,71 +3,52 @@
     <img src="./public/icons/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">UBench Launcher</h3>
-<hr>
+# UBench Launcher
+
 </div>
 
-### Table of Contents
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-    </li>
-    <li>
-      <ul>
-        <li><a href="#release">Release</a></li>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#running">Running</a></li>
-        <li><a href="#packaging">Packaging</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#license">License</a></li>
-  </ol>
 
-## About The Project
+## About
 
-UBench Launcher is a download manager and launcher utility client for the UBench benchmarking system. UBench Launcher allows users to download, run and report system benchmarks for **Unreal Engine**. UBench Launcher is built with `Electron`. 
+UBench Launcher is a download manager and launcher utility client for the [**UBench**](https://www.ubench.org) ecosystem. UBench Launcher allows users to download, run and report system benchmarks for [Unreal Engine](https://www.unrealengine.com/).
 
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/ubench-org/ubench-launcher">
     <img src="./screenshot.png" alt="Logo" width="100%" height="auto">
   </a>
 
+## Features
+
+ - User authentication
+ - System hardware inspection
+ - Download and install benchmarks
+ - Manage and run installed benchmarks
+ - Provide API endpoints for benchmarking
+ - Capture and report benchmark scores
+ - Cross-platform support
+
 ## Release
 
-You probably want to [download the latest Prebuilt Package](https://github.com/ubench-org/UBench-Launcher/releases/).
-
-> Read further if you would like to build from scratch or contribute to development.
-
+You probably want to [download the latest](https://github.com/ubench-org/UBench-Launcher/releases/tag/Latest) prebuilt binary for your system.
 
 ## Prerequisites
 
-You must install the required `modules` first
-```sh
-npm i
-```
-
-## Running
-
-UBench Launcher can be run for development purposes by executing 
-```sh
-npm run start
-```
+ - [NodeJS](https://nodejs.org/)
+ - [Electron](https://www.electronjs.org/)
 
 ## Packaging
 
 Targets are built using `electron-forge` by running 
 ```sh
-npm run package
+npm i           #install dependancies
+npm run package #build and package
 ```
 
 ## License
 
-Distributed under the GPL License. See [LICENSE.TXT](license.txt) for more information.
+UBench Launcher and associated products are distributed under the [GPL3 License](license.txt).
 
 ## Contact
 
-[UBench Organization Email](mailto:ubench.org@gmail.com)
+[📧 UBench Organization Email](mailto:info@ubench.org)
 
-<hr>
-
-[ubench.org](http://www.ubench.org)
+[🌍 ubench.org](http://www.ubench.org)
