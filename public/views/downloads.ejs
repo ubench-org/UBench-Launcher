@@ -32,7 +32,9 @@
             <p class="os_p">OS: ${d[i].fields.Platform.stringValue}</p>
             <p>Size: ${d[i].fields.Size.integerValue} GB</p>
             <p>Tags: ${tags}</p>
-            <button class="btn">Download</button>
+            <span id="${d[i].fields.Title.stringValue}_dl">
+                <button class="btn" onclick="download('${d[i].fields.Title.stringValue}','${d[i].fields.URL.stringValue}');">Download</button>
+            </span>
         </div>
             `;
 
@@ -113,5 +115,22 @@
             document.getElementById("rhi_s").value = "All";
             document.getElementById("os_s").value = "All";
             document.getElementById("uev_s").value = "All";
+        }
+
+
+        function cancel(uuid) {
+            document.getElementById(`${uuid}_dl`).innerHTML = `<button class="btn" onclick="download('${uuid}');">Download</button>`;
+            window.api.cancelDownload(uuid);
+            //document.getElementById(uuid).innerHTML = `<button class="button button-small" onclick="download('${uuid}')">Download</button>`;
+        }
+
+        function download(uuid, url) {
+            window.api.requestDownload(uuid, url);
+            console.log(uuid,url)
+            document.getElementById(`${uuid}_dl`).innerHTML = `
+    <span id="span_${uuid}">
+    <b>Starting download...</b>
+    </span>
+    <button class="btn btn-sm" onclick="cancel('${uuid}')">Cancel</button>`;
         }
     </script>

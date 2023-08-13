@@ -37,7 +37,7 @@ You probably want to [download the latest](https://github.com/ubench-org/UBench-
 
 ## Packaging
 
-Targets are built using `electron-forge` by running 
+Targets are built using `electron-forge`.
 ```sh
 npm i           #install dependancies
 npm run package #build and package
@@ -49,6 +49,6 @@ UBench Launcher and associated products are distributed under the [GPL3 License]
 
 ## Contact
 
-[📧 UBench Organization Email](mailto:info@ubench.org)
+📧 [info@ubench.org](mailto:info@ubench.org)
 
-[🌍 ubench.org](http://www.ubench.org)
+🌍 [ubench.org](http://www.ubench.org)

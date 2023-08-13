@@ -540,3 +540,10 @@ select {
 a {
     text-decoration: none;
 }
+
+progress {
+    color: var(--light);
+    border: none;
+    height: 32px;
+    width: 100%;
+}

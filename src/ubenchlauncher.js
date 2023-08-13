@@ -47,25 +47,6 @@ let manifest = [];
 //load_manifest();
 
 
-function load_manifest(event) {
-    console.log('lm')
-    ax.get('/manifests?populate=*')
-        .then(response => {
-            return response.data;
-        })
-        .then(data => {
-            manifest = data.data;
-            for (var i = 0; i < manifest.length; i++) {
-                manifest[i].attributes['score'] = 0;
-                manifest[i].attributes['installed'] = fs.pathExistsSync(path.join(rootDir, "bin", manifest[i].attributes.uuid))
-                manifest[i].attributes['downloading'] = fs.pathExistsSync(path.join(rootDir, "cache", manifest[i].attributes.uuid))
-            }
-            fs.writeJSONSync(path.join(rootDir, "data", "manifest.json"), manifest);
-            //event.sender.send('manifest', manifest)
-        })
-}
-
-
 let has_sysinfo = false;
 let cpu = {};
 let gfx = [];
@@ -88,7 +69,7 @@ function analyze_system() {
         system.manufacturer = data.manufacturer;
         system.model = data.model;
         checks++;
-        console.log("System\t" + system.manufacturer + " " + system.model);
+        //console.log("System\t" + system.manufacturer + " " + system.model);
     });
     si.baseboard(function (data) {
         mboard.manufacturer = data.manufacturer;
@@ -96,7 +77,7 @@ function analyze_system() {
         mboard.version = data.version;
 
         checks++;
-        console.log("Board\t" + mboard.manufacturer + " " + mboard.model + " V" + mboard.version)
+        //console.log("Board\t" + mboard.manufacturer + " " + mboard.model + " V" + mboard.version)
     });
     si.cpu(function (data) {
         cpu.manufacturer = data.manufacturer
@@ -107,13 +88,13 @@ function analyze_system() {
         cpu.processors = data.processors
 
         checks++;
-        console.log("CPU\t" + cpu.brand + " " + cpu.processors + "x" + cpu.speed + "GHz (" + cpu.cores + "C/" + cpu.threads + "T)")
+        //console.log("CPU\t" + cpu.brand + " " + cpu.processors + "x" + cpu.speed + "GHz (" + cpu.cores + "C/" + cpu.threads + "T)")
     });
     si.mem(function (data) {
         mem = Math.round(data.total / 1024 / 1024 / 1024);
 
         checks++;
-        console.log("RAM\t" + mem + "GB");
+        //console.log("RAM\t" + mem + "GB");
     });
     si.graphics(function (data) {
         for (var i = 0; i < data.controllers.length; i++) {
@@ -122,7 +103,7 @@ function analyze_system() {
             _gfx.vram = data.controllers[i].vram
             gfx.push(_gfx)
 
-            console.log("GFX[" + i + "]\t" + _gfx.model + " " + _gfx.vram + "MB")
+            //console.log("GFX[" + i + "]\t" + _gfx.model + " " + _gfx.vram + "MB")
         }
         checks++;
     });
@@ -133,7 +114,7 @@ function analyze_system() {
         os.arch = data.arch;
 
         checks++;
-        console.log("OS\t" + os.distro);
+        //console.log("OS\t" + os.distro);
     });
     si.diskLayout(function (data) {
         for (var i = 0; i < data.length; i++) {
@@ -144,7 +125,7 @@ function analyze_system() {
             _disk.type = data[i].interfaceType;
             disks.push(_disk);
 
-            console.log("DISK[" + i + "]\t" + _disk.name + " " + _disk.size + "GB")
+            //console.log("DISK[" + i + "]\t" + _disk.name + " " + _disk.size + "GB")
         }
         checks++;
 
@@ -154,7 +135,7 @@ function analyze_system() {
         uuid.hardware = data.hardware;
 
         checks++;
-        console.log("UUID\t" + uuid.hardware);
+        //console.log("UUID\t" + uuid.hardware);
     });
 
     setInterval(() => {
@@ -190,7 +171,9 @@ const splash = () => {
         height: 250,
         transparent: true,
         frame: false,
-        alwaysOnTop: true
+        alwaysOnTop: true,
+        backgroundColor: "#121212",
+        icon: "./res/logo.ico",
     });
     splashWindow.loadURL(path.join(rootDir, "public", "splash.ejs"))
 
@@ -234,16 +217,8 @@ const createWindow = () => {
 
     ipcMain.on('delete', (event, uuid) => {
         fs.removeSync(path.join(rootDir, "bin", uuid));
-        load_manifest();
         //event.sender.send('manifest', manifest)
         console.log('delete', uuid)
-    })
-
-    ipcMain.on('getManifest', (event) => {
-        load_manifest(event);
-        /*         setTimeout(() => {
-                    event.sender.send('manifest', manifest)
-                }, 1000); */
     })
 
     ipcMain.on('requestDownload', async (event, uuid, url) => {
@@ -252,6 +227,9 @@ const createWindow = () => {
             console.log("starting download", uuid, url);
             let dir = path.join(rootDir, "bin", uuid)
             let cache = path.join(rootDir, "cache", uuid);
+            console.log(dir)
+            console.log(cache)
+            console.log(url)
             downloader = new Downloader({
                 url: url,
                 directory: cache,
@@ -264,24 +242,22 @@ const createWindow = () => {
             try {
                 await downloader.download();
                 fs.ensureDirSync(dir);
-                zipper.sync.unzip(path.join(cache, uuid + ".zip")).save(dir);
+                //zipper.sync.unzip(path.join(cache, uuid + ".zip")).save(dir);
                 event.sender.send('completedDownload', uuid)
                 new Notification({
                     title: "Download Complete",
                     body: uuid + " has been installed"
                 }).show()
                 downloading = false;
-                load_manifest();
                 console.log('done downloading', uuid)
-                fs.rmSync(path.join(cache, uuid + ".zip"));
-                fs.rmdirSync(cache);
+                //fs.rmSync(path.join(cache, uuid + ".zip"));
+                //fs.rmdirSync(cache);
 
 
             } catch (error) {
                 downloader.cancel();
                 downloading = false;
-                fs.removeSync(path.join(rootDir, "cache", uuid));
-                load_manifest();
+                //fs.removeSync(path.join(rootDir, "cache", uuid));
                 //event.sender.send('manifest', manifest)
                 console.log('error downloading', uuid, error)
             }
@@ -296,7 +272,6 @@ const createWindow = () => {
             downloader.cancel();
             event.sender.send('cancelledDownload', uuid)
             fs.removeSync(path.join(rootDir, "bin", uuid));
-            load_manifest();
             //event.sender.send('manifest', manifest)
         }
 
